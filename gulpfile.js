@@ -6,6 +6,7 @@
 var gulp = require('gulp'),
   path = require('path'),
   browserSync = require('browser-sync').create(),
+  sass = require('gulp-sass'),
   argv = require('minimist')(process.argv.slice(2));
 
 function resolvePath(pathInput) {
@@ -37,6 +38,14 @@ gulp.task('pl-copy:favicon', function(){
 gulp.task('pl-copy:font', function(){
   return gulp.src('*', {cwd: resolvePath(paths().source.fonts)})
     .pipe(gulp.dest(resolvePath(paths().public.fonts)));
+});
+
+// SASS Compilation
+// assumes main scss file is in css dir
+gulp.task('pl-sass', function(){
+  return gulp.src(path.resolve(paths().source.css,'**/*.scss'))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest(resolvePath(paths().source.css)));
 });
 
 // CSS Copy
@@ -89,7 +98,7 @@ gulp.task('pl-assets', gulp.series(
     'pl-copy:img',
     'pl-copy:favicon',
     'pl-copy:font',
-    'pl-copy:css',
+    gulp.series('pl-sass', 'pl-copy:css', function(done){done();}),
     'pl-copy:styleguide',
     'pl-copy:styleguide-css'
   ),
@@ -154,6 +163,10 @@ function reloadCSS() {
 }
 
 function watch() {
+  gulp.watch([
+      resolvePath(paths().source.patterns) + '/**/*.scss',
+      resolvePath(paths().source.scss) + '/**/*.scss',
+    ]).on('change', gulp.series('pl-sass'));
   gulp.watch(resolvePath(paths().source.css) + '/**/*.css', { awaitWriteFinish: true }).on('change', gulp.series('pl-copy:css', reloadCSS));
   gulp.watch(resolvePath(paths().source.styleguide) + '/**/*.*', { awaitWriteFinish: true }).on('change', gulp.series('pl-copy:styleguide', 'pl-copy:styleguide-css', reloadCSS));
 
