@@ -25,10 +25,14 @@
   "author": "Brian Muenzenmeyer",
   "scripts": {
     "postinstall": "node scripts/postinstall.js",
-    "gulp": "gulp -- "
+    "gulp": "gulp -- ",
+    "start": "./node_modules/gulp/bin/gulp.js patternlab:serve"
   },
   "license": "MIT",
   "engines": {
     "node": ">=5.0"
+  },
+  "devDependencies": {
+    "gulp-sass": "^2.3.2"
   }
 }
