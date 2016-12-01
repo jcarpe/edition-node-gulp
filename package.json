@@ -26,7 +26,7 @@
   "scripts": {
     "postinstall": "node scripts/postinstall.js",
     "gulp": "gulp -- ",
-    "start": "./node_modules/gulp/bin/gulp.js patternlab:serve",
+    "start": "./node_modules/gulp/bin/gulp.js patternlab:serve"
   },
   "license": "MIT",
   "engines": {
