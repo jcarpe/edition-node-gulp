@@ -167,8 +167,12 @@ function watch() {
       resolvePath(paths().source.patterns) + '/**/*.scss',
       resolvePath(paths().source.scss) + '/**/*.scss',
     ]).on('change', gulp.series('pl-sass'));
-  gulp.watch(resolvePath(paths().source.css) + '/**/*.css', { awaitWriteFinish: true }).on('change', gulp.series('pl-copy:css', reloadCSS));
-  gulp.watch(resolvePath(paths().source.styleguide) + '/**/*.*', { awaitWriteFinish: true }).on('change', gulp.series('pl-copy:styleguide', 'pl-copy:styleguide-css', reloadCSS));
+
+  gulp.watch(resolvePath(paths().source.css) + '/**/*.css', { awaitWriteFinish: true })
+    .on('change', gulp.series('pl-copy:css', reloadCSS));
+
+  gulp.watch(resolvePath(paths().source.styleguide) + '/**/*.*', { awaitWriteFinish: true })
+    .on('change', gulp.series('pl-copy:styleguide', 'pl-copy:styleguide-css', reloadCSS));
 
   var patternWatches = [
     resolvePath(paths().source.patterns) + '/**/*.json',
