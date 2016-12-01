@@ -2,6 +2,8 @@
 
 The Gulp wrapper around [Pattern Lab Node Core](https://github.com/pattern-lab/patternlab-node) providing tasks to interact with the core library and move supporting frontend assets.
 
+SASS compilation has also been included with a basic setup. The tasks watches for SASS changes in all working directories (where SASS fgiles would live) and compiles a singular app.css file in the `css` directory. Includes `gulp-sass` package. Setup is based on [Brian Muenzenmeyer](http://www.brianmuenzenmeyer.com/adding-common-gulp-tasks-to-pattern-lab-node)'s explanation.
+
 ## Packaged Components
 
 The Gulp Edition comes with the following components:
